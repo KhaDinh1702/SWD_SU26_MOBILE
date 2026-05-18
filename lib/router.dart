@@ -1,11 +1,11 @@
-import 'package:flutter_app/features/auth/presentation/pages/login_page.dart';
-import 'package:flutter_app/features/auth/presentation/pages/register_page.dart';
-import 'package:flutter_app/features/booking/presentation/pages/booking_page.dart';
-import 'package:flutter_app/features/dashboard/presentation/pages/dashboard_page.dart';
-import 'package:flutter_app/features/history/presentation/pages/history_page.dart';
-import 'package:flutter_app/features/home/presentation/pages/home_page.dart';
-import 'package:flutter_app/features/profile/presentation/pages/profile_page.dart';
-import 'package:flutter_app/features/shell/presentation/pages/main_shell.dart';
+import 'package:wave/features/auth/presentation/pages/login_page.dart';
+import 'package:wave/features/auth/presentation/pages/register_page.dart';
+import 'package:wave/features/booking/presentation/pages/booking_page.dart';
+import 'package:wave/features/dashboard/presentation/pages/dashboard_page.dart';
+import 'package:wave/features/history/presentation/pages/history_page.dart';
+import 'package:wave/features/home/presentation/pages/home_page.dart';
+import 'package:wave/features/profile/presentation/pages/profile_page.dart';
+import 'package:wave/features/shell/presentation/pages/main_shell.dart';
 import 'package:go_router/go_router.dart';
 
 final router = GoRouter(

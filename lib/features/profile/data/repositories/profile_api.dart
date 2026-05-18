@@ -1,6 +1,6 @@
 import 'package:dio/dio.dart';
-import 'package:flutter_app/core/network/api_enpoints.dart';
-import 'package:flutter_app/features/profile/data/models/profile_model.dart';
+import 'package:wave/core/network/api_enpoints.dart';
+import 'package:wave/features/profile/data/models/profile_model.dart';
 
 class ProfileApi {
   final Dio _dio;

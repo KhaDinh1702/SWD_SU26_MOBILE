@@ -1,8 +1,8 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:flutter_app/core/network/dio_client.dart';
-import 'package:flutter_app/core/storage/token_storage.dart';
-import 'package:flutter_app/features/auth/data/repositories/auth_api.dart';
-import 'package:flutter_app/features/auth/data/repositories/auth_repository.dart';
+import 'package:wave/core/network/dio_client.dart';
+import 'package:wave/core/storage/token_storage.dart';
+import 'package:wave/features/auth/data/repositories/auth_api.dart';
+import 'package:wave/features/auth/data/repositories/auth_repository.dart';
 
 final tokenStorageProvider = Provider((_) => TokenStorage());
 

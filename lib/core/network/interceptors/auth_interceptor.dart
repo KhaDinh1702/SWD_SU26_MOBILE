@@ -1,7 +1,7 @@
 import 'package:dio/dio.dart';
-import 'package:flutter_app/core/network/api_enpoints.dart';
-import 'package:flutter_app/core/network/base_urls.dart';
-import 'package:flutter_app/core/storage/token_storage.dart';
+import 'package:wave/core/network/api_enpoints.dart';
+import 'package:wave/core/network/base_urls.dart';
+import 'package:wave/core/storage/token_storage.dart';
 
 class AuthInterceptor extends Interceptor {
   final Dio _dio;

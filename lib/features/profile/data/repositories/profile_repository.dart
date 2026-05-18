@@ -1,5 +1,5 @@
-import 'package:flutter_app/features/profile/data/models/profile_model.dart';
-import 'package:flutter_app/features/profile/data/repositories/profile_api.dart';
+import 'package:wave/features/profile/data/models/profile_model.dart';
+import 'package:wave/features/profile/data/repositories/profile_api.dart';
 
 class ProfileRepository {
   final ProfileApi _api;

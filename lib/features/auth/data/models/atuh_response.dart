@@ -1,4 +1,4 @@
-import 'package:flutter_app/features/auth/data/models/user_model.dart';
+import 'package:wave/features/auth/data/models/user_model.dart';
 
 class AuthResponse {
   final String token;

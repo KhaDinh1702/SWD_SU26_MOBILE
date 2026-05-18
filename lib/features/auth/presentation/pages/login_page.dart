@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_app/core/theme/app_colors.dart';
-import 'package:flutter_app/features/auth/presentation/widgets/login_form.dart';
+import 'package:wave/core/theme/app_colors.dart';
+import 'package:wave/features/auth/presentation/widgets/login_form.dart';
 
 class LoginPage extends StatelessWidget {
   const LoginPage({super.key});

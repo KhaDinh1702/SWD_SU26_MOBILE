@@ -1,8 +1,8 @@
 import 'package:dio/dio.dart';
-import 'package:flutter_app/core/network/api_enpoints.dart';
-import 'package:flutter_app/features/auth/data/models/atuh_response.dart';
-import 'package:flutter_app/features/auth/data/models/login_request.dart';
-import 'package:flutter_app/features/auth/data/models/register_request.dart';
+import 'package:wave/core/network/api_enpoints.dart';
+import 'package:wave/features/auth/data/models/atuh_response.dart';
+import 'package:wave/features/auth/data/models/login_request.dart';
+import 'package:wave/features/auth/data/models/register_request.dart';
 
 class AuthApi {
   final Dio _dio;

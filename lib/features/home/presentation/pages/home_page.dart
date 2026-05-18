@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:flutter_app/core/theme/app_colors.dart';
-import 'package:flutter_app/features/home/presentation/widgets/feature_item.dart';
-import 'package:flutter_app/features/home/presentation/widgets/gradient_button.dart';
+import 'package:wave/core/theme/app_colors.dart';
+import 'package:wave/features/home/presentation/widgets/feature_item.dart';
+import 'package:wave/features/home/presentation/widgets/gradient_button.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -92,7 +92,7 @@ class HomePage extends StatelessWidget {
                         ),
                         const SizedBox(height: 28),
                         const Text(
-                          'AutoWash Pro',
+                          'WAVE',
                           style: TextStyle(
                             fontSize: 34,
                             fontWeight: FontWeight.w800,

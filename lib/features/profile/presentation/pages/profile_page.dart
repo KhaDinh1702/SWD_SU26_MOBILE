@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:flutter_app/core/theme/app_colors.dart';
-import 'package:flutter_app/features/auth/presentation/providers/auth_controller.dart';
-import 'package:flutter_app/features/profile/presentation/widgets/loyalty_card.dart';
-import 'package:flutter_app/features/profile/presentation/widgets/quick_actions_grid.dart';
-import 'package:flutter_app/features/profile/presentation/widgets/recent_activity_list.dart';
-import 'package:flutter_app/features/profile/presentation/widgets/logout_button.dart';
+import 'package:wave/core/theme/app_colors.dart';
+import 'package:wave/features/auth/presentation/providers/auth_controller.dart';
+import 'package:wave/features/profile/presentation/widgets/loyalty_card.dart';
+import 'package:wave/features/profile/presentation/widgets/quick_actions_grid.dart';
+import 'package:wave/features/profile/presentation/widgets/recent_activity_list.dart';
+import 'package:wave/features/profile/presentation/widgets/logout_button.dart';
 
 class ProfilePage extends ConsumerWidget {
   const ProfilePage({super.key});

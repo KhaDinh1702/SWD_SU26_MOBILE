@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:flutter_app/core/theme/app_colors.dart';
+import 'package:wave/core/theme/app_colors.dart';
 
 class MainShell extends StatelessWidget {
   final StatefulNavigationShell navigationShell;

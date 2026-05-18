@@ -1,7 +1,7 @@
-import 'package:flutter_app/features/auth/data/models/atuh_response.dart';
-import 'package:flutter_app/features/auth/data/models/login_request.dart';
-import 'package:flutter_app/features/auth/data/models/register_request.dart';
-import 'package:flutter_app/features/auth/data/repositories/auth_api.dart';
+import 'package:wave/features/auth/data/models/atuh_response.dart';
+import 'package:wave/features/auth/data/models/login_request.dart';
+import 'package:wave/features/auth/data/models/register_request.dart';
+import 'package:wave/features/auth/data/repositories/auth_api.dart';
 
 class AuthRepository {
   final AuthApi _api;

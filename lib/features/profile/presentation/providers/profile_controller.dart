@@ -1,6 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:flutter_app/features/profile/data/models/profile_model.dart';
-import 'package:flutter_app/features/profile/presentation/providers/profile_provider.dart';
+import 'package:wave/features/profile/data/models/profile_model.dart';
+import 'package:wave/features/profile/presentation/providers/profile_provider.dart';
 
 class ProfileController extends AsyncNotifier<ProfileModel?> {
   @override

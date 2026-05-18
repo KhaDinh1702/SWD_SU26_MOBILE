@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_app/core/theme/app_colors.dart';
-import 'package:flutter_app/features/auth/presentation/widgets/register_form.dart';
+import 'package:wave/core/theme/app_colors.dart';
+import 'package:wave/features/auth/presentation/widgets/register_form.dart';
 
 class RegisterPage extends StatelessWidget {
   const RegisterPage({super.key});

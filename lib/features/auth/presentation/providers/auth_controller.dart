@@ -1,7 +1,7 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:flutter_app/core/storage/token_storage.dart';
-import 'package:flutter_app/features/auth/data/models/atuh_response.dart';
-import 'package:flutter_app/features/auth/presentation/providers/auth_provider.dart';
+import 'package:wave/core/storage/token_storage.dart';
+import 'package:wave/features/auth/data/models/atuh_response.dart';
+import 'package:wave/features/auth/presentation/providers/auth_provider.dart';
 
 class AuthController extends AsyncNotifier<AuthResponse?> {
   @override
