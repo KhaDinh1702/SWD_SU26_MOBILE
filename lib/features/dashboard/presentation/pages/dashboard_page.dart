@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import 'package:wave/core/theme/app_colors.dart';
 import 'package:wave/features/auth/presentation/providers/auth_controller.dart';
+import 'package:wave/features/dashboard/presentation/providers/dashboard_provider.dart';
 import 'package:wave/features/profile/presentation/widgets/loyalty_card.dart';
 import 'package:wave/features/profile/presentation/widgets/quick_actions_grid.dart';
-import 'package:wave/features/profile/presentation/widgets/recent_activity_list.dart';
 
 class DashboardPage extends ConsumerWidget {
   const DashboardPage({super.key});
@@ -15,6 +16,9 @@ class DashboardPage extends ConsumerWidget {
     final user = authState.asData?.value?.user;
     final userName = user?.name ?? 'Thành viên';
     final userEmail = user?.email ?? '';
+
+    final loyaltyAsync = ref.watch(loyaltyProvider);
+    final servicesAsync = ref.watch(servicesProvider);
 
     return Scaffold(
       backgroundColor: AppColors.cream,
@@ -50,20 +54,77 @@ class DashboardPage extends ConsumerWidget {
                 children: [
                   _Greeting(name: userName),
                   const SizedBox(height: 20),
-                  LoyaltyCard(
-                    name: userName,
-                    email: userEmail,
-                    loyaltyPoints: user != null ? 1250 : 0,
-                    tier: 'VÀNG',
+                  loyaltyAsync.when(
+                    data: (loyalty) => LoyaltyCard(
+                      name: userName,
+                      email: userEmail,
+                      loyaltyPoints: loyalty.pointsBalance.toInt(),
+                      tier: loyalty.tierName.toUpperCase(),
+                      progress: loyalty.successfulWashesTowardVoucher / 10.0,
+                    ),
+                    loading: () => const Center(child: CircularProgressIndicator()),
+                    error: (err, stack) => LoyaltyCard(
+                      name: userName,
+                      email: userEmail,
+                      loyaltyPoints: 0,
+                      tier: 'NONE',
+                      progress: 0.0,
+                    ),
                   ),
                   const SizedBox(height: 24),
                   const _SectionHeader(title: 'Thao Tác Nhanh'),
                   const SizedBox(height: 14),
                   const QuickActionsGrid(),
                   const SizedBox(height: 24),
-                  const _SectionHeader(title: 'Hoạt Động Gần Đây'),
+                  const _SectionHeader(title: 'Dịch Vụ Nổi Bật'),
                   const SizedBox(height: 14),
-                  const RecentActivityList(),
+                  servicesAsync.when(
+                    data: (services) => SizedBox(
+                      height: 150,
+                      child: ListView.separated(
+                        scrollDirection: Axis.horizontal,
+                        itemCount: services.length,
+                        separatorBuilder: (context, index) => const SizedBox(width: 12),
+                        itemBuilder: (context, index) {
+                          final service = services[index];
+                          return GestureDetector(
+                            onTap: () {
+                              // If you want to pre-select, you can call bookingNotifier.selectService(service) here
+                              // But for now, we just go to the booking page
+                              context.go('/booking');
+                            },
+                            child: Container(
+                              width: 140,
+                              decoration: BoxDecoration(
+                                color: Colors.white,
+                                borderRadius: BorderRadius.circular(16),
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: Colors.black.withValues(alpha: 0.05),
+                                    blurRadius: 10,
+                                    offset: const Offset(0, 4),
+                                  )
+                                ]
+                              ),
+                              padding: const EdgeInsets.all(16),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  const Icon(Icons.local_car_wash, color: AppColors.primaryBlue),
+                                  const SizedBox(height: 12),
+                                  Text(service.name, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 14)),
+                                  const Spacer(),
+                                  Text('${service.basePrice}đ', style: const TextStyle(color: AppColors.primaryBlue, fontWeight: FontWeight.bold)),
+                                ],
+                              ),
+                            ),
+                          );
+                        },
+                      ),
+                    ),
+                    loading: () => const Center(child: CircularProgressIndicator()),
+                    error: (err, stack) => const Text('Lỗi tải danh sách dịch vụ'),
+                  ),
                   const SizedBox(height: 32),
                 ],
               ),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 class _QuickAction {
   final IconData icon;
@@ -23,25 +24,25 @@ class QuickActionsGrid extends StatelessWidget {
         icon: Icons.calendar_today_rounded,
         label: 'Đặt Lịch',
         gradient: const [Color(0xFF1E9ED8), Color(0xFF185E78)],
-        onTap: () {},
+        onTap: () => context.go('/booking'),
       ),
       _QuickAction(
         icon: Icons.history_rounded,
         label: 'Lịch Sử',
         gradient: const [Color(0xFF2C7BB5), Color(0xFF0D3D52)],
-        onTap: () {},
+        onTap: () => context.go('/history'),
       ),
       _QuickAction(
         icon: Icons.local_offer_rounded,
         label: 'Khuyến Mãi',
         gradient: const [Color(0xFF22A86A), Color(0xFF156B44)],
-        onTap: () {},
+        onTap: () => context.push('/vouchers'),
       ),
       _QuickAction(
         icon: Icons.directions_car_rounded,
         label: 'Xe Của Tôi',
         gradient: const [Color(0xFF9B72CF), Color(0xFF5C3D99)],
-        onTap: () {},
+        onTap: () => context.push('/vehicles'),
       ),
     ];
 
