@@ -6,6 +6,7 @@ class LoyaltyCard extends StatelessWidget {
   final String email;
   final int loyaltyPoints;
   final String tier;
+  final double progress;
 
   const LoyaltyCard({
     super.key,
@@ -13,6 +14,7 @@ class LoyaltyCard extends StatelessWidget {
     required this.email,
     required this.loyaltyPoints,
     required this.tier,
+    this.progress = 0.0,
   });
 
   @override
@@ -149,7 +151,7 @@ class LoyaltyCard extends StatelessWidget {
                   Row(
                     children: [
                       Text(
-                        '750 điểm nữa lên hạng Bạch Kim',
+                        '${(10 - progress * 10).toInt()} lần rửa nữa để nhận Voucher',
                         style: TextStyle(
                           fontSize: 12,
                           color: AppColors.white.withValues(alpha: 0.8),
@@ -164,7 +166,7 @@ class LoyaltyCard extends StatelessWidget {
                           borderRadius: BorderRadius.circular(10),
                         ),
                         child: Text(
-                          '62%',
+                          '${(progress * 100).toInt()}%',
                           style: TextStyle(
                             fontSize: 12,
                             fontWeight: FontWeight.w700,
@@ -178,7 +180,7 @@ class LoyaltyCard extends StatelessWidget {
                   ClipRRect(
                     borderRadius: BorderRadius.circular(4),
                     child: LinearProgressIndicator(
-                      value: 0.62,
+                      value: progress,
                       minHeight: 7,
                       backgroundColor: AppColors.white.withValues(alpha: 0.2),
                       valueColor: const AlwaysStoppedAnimation<Color>(
