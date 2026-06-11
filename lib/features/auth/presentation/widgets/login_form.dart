@@ -36,7 +36,8 @@ class _LoginFormState extends ConsumerState<LoginForm> {
     if (!mounted) return;
     final authState = ref.read(authControllerProvider);
     if (authState.hasValue && authState.value != null) {
-      context.goNamed('dashboard');
+      final user = authState.value!.user;
+      context.goNamed(user.isWasher ? 'washer' : 'dashboard');
     }
   }
 

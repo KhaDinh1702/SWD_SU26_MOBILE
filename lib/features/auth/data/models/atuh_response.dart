@@ -11,9 +11,17 @@ class AuthResponse {
     required this.user,
   });
 
-  factory AuthResponse.fromJson(Map<String, dynamic> json) => AuthResponse(
-        token: (json['accessToken'] ?? json['token'] ?? '') as String,
-        refreshToken: (json['refreshToken'] ?? '') as String,
-        user: UserModel.fromJson(json['user'] as Map<String, dynamic>),
-      );
+  factory AuthResponse.fromJson(Map<String, dynamic> json) {
+    final root = json['data'] is Map<String, dynamic>
+        ? json['data'] as Map<String, dynamic>
+        : json;
+    final userJson = root['user'] ?? root['account'] ?? root['profile'];
+    return AuthResponse(
+      token: (root['accessToken'] ?? root['token'] ?? '').toString(),
+      refreshToken: (root['refreshToken'] ?? '').toString(),
+      user: userJson is Map<String, dynamic>
+          ? UserModel.fromJson(userJson)
+          : const UserModel(id: '', email: '', name: ''),
+    );
+  }
 }
