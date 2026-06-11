@@ -7,6 +7,7 @@ import 'package:wave/features/history/presentation/pages/history_page.dart';
 import 'package:wave/features/home/presentation/pages/home_page.dart';
 import 'package:wave/features/profile/presentation/pages/profile_page.dart';
 import 'package:wave/features/shell/presentation/pages/main_shell.dart';
+import 'package:wave/features/washer/presentation/pages/washer_shell.dart';
 import 'package:wave/features/profile/presentation/pages/vehicles_page.dart' as wave_vehicles;
 import 'package:wave/features/profile/presentation/pages/vouchers_page.dart' as wave_vouchers;
 import 'package:wave/features/profile/presentation/pages/loyalty_page.dart' as wave_loyalty;
@@ -54,6 +55,13 @@ final router = GoRouter(
       path: '/loyalty',
       name: 'loyalty',
       builder: (context, state) => const wave_loyalty.LoyaltyPage(),
+    ),
+
+    // Washer — khung điều hướng riêng (3 tab: Công việc / Hoàn thành / Tôi)
+    GoRoute(
+      path: '/washer',
+      name: 'washer',
+      builder: (context, state) => const WasherShell(),
     ),
 
     // Shell — bottom nav hiển thị sau khi login

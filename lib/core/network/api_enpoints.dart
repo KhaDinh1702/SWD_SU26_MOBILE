@@ -24,4 +24,12 @@ class ApiEndpoints {
   
   // tier configs
   static const tierConfigs = '/tier-configs';
+
+  // washer work-orders
+  static const workOrders = '/me/work-orders';
+  // detail/start/checklist/finish: '$workOrders/$id', '$workOrders/$id/start', ...
+
+  // upload (Cloudinary) → trả về { url } / { urls: [...] }
+  static const uploadImage = '/upload/image';
+  static const uploadImages = '/upload/images';
 }
