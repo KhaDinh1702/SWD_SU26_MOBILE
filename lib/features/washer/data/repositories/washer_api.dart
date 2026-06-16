@@ -9,7 +9,17 @@ class WasherApi {
 
   Future<List<WasherOrderModel>> getWorkOrders() async {
     final response = await _dio.get(ApiEndpoints.workOrders);
-    final data = response.data as List;
+    final raw = response.data;
+    final List data;
+    if (raw is List) {
+      data = raw;
+    } else if (raw is Map) {
+      // backend trả về { data: [...] } hoặc { items: [...] } hoặc { workOrders: [...] }
+      final inner = raw['data'] ?? raw['items'] ?? raw['workOrders'] ?? raw['content'];
+      data = inner is List ? inner : [];
+    } else {
+      data = [];
+    }
     return data
         .map((e) => WasherOrderModel.fromJson(e as Map<String, dynamic>))
         .toList();
@@ -25,21 +35,14 @@ class WasherApi {
     return WasherOrderModel.fromJson(response.data as Map<String, dynamic>);
   }
 
-  /// Cập nhật một mục checklist theo vị trí (index) trong danh sách.
-  /// Body: `{ "index": int, "done": bool }`
-  Future<WasherOrderModel> updateChecklistItem(
-      String id, int index, bool done) async {
-    final response = await _dio.patch(
-      '${ApiEndpoints.workOrders}/$id/checklist',
-      data: {'index': index, 'done': done},
-    );
-    return WasherOrderModel.fromJson(response.data as Map<String, dynamic>);
-  }
-
   /// Hoàn thành work-order: IN_PROGRESS → QUALITY_CHECK.
-  ///
-  Future<WasherOrderModel> finishWorkOrder(String id) async {
-    final response = await _dio.patch('${ApiEndpoints.workOrders}/$id/finish');
+  /// [checkoutPhotoUrls] là danh sách URL ảnh sau khi rửa đã upload lên Cloudinary.
+  Future<WasherOrderModel> finishWorkOrder(
+      String id, List<String> checkoutPhotoUrls) async {
+    final response = await _dio.patch(
+      '${ApiEndpoints.workOrders}/$id/finish',
+      data: {'checkoutPhotos': checkoutPhotoUrls},
+    );
     return WasherOrderModel.fromJson(response.data as Map<String, dynamic>);
   }
 }

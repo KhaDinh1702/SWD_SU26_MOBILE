@@ -1,42 +1,3 @@
-class ChecklistItemModel {
-  final String label;
-  final bool done;
-  final String doneAt;
-  final String group; // chỉ dùng để gom nhóm trên UI (server không trả)
-
-  const ChecklistItemModel({
-    this.label = '',
-    this.done = false,
-    this.doneAt = '',
-    this.group = '',
-  });
-
-  factory ChecklistItemModel.fromJson(Map<String, dynamic> json) {
-    return ChecklistItemModel(
-      label: (json['label'] ?? json['title'] ?? json['name'] ?? '').toString(),
-      done: json['done'] ?? false,
-      doneAt: (json['doneAt'] ?? '').toString(),
-      group: (json['group'] ?? '').toString(),
-    );
-  }
-
-  Map<String, dynamic> toJson() => {'label': label, 'done': done};
-
-  ChecklistItemModel copyWith({
-    String? label,
-    bool? done,
-    String? doneAt,
-    String? group,
-  }) {
-    return ChecklistItemModel(
-      label: label ?? this.label,
-      done: done ?? this.done,
-      doneAt: doneAt ?? this.doneAt,
-      group: group ?? this.group,
-    );
-  }
-}
-
 class WasherOrderModel {
   final String id;
   final String orderId;
@@ -55,7 +16,7 @@ class WasherOrderModel {
   final bool qcPassed;
   final String qcNote;
   final List<String> checkinPhotos;
-  final List<ChecklistItemModel> checklist;
+  final List<String> checkoutPhotos;
 
   const WasherOrderModel({
     required this.id,
@@ -75,7 +36,7 @@ class WasherOrderModel {
     this.qcPassed = false,
     this.qcNote = '',
     this.checkinPhotos = const [],
-    this.checklist = const [],
+    this.checkoutPhotos = const [],
   });
 
   /// Nhãn xe hiển thị: "Motorbike • Red".
@@ -91,15 +52,19 @@ class WasherOrderModel {
     'quality_check',
     'qc',
     'qc_passed',
-    'qc_failed',
     'done',
     'finished',
     'completed',
-    'returned',
     'cancelled',
   };
 
+  /// QC không đạt → washer cần rửa lại, vẫn hiện trên dashboard.
+  static const _redoStatuses = {'qc_failed', 'returned'};
+
   bool get isCompleted => _doneStatuses.contains(status.toLowerCase());
+
+  /// Đơn bị trả lại để làm lại (QC không đạt).
+  bool get isRedo => _redoStatuses.contains(status.toLowerCase());
 
   /// Các trạng thái đơn đã giao nhưng washer chưa bấm "Bắt đầu".
   static const _waitingStatuses = {
@@ -121,8 +86,8 @@ class WasherOrderModel {
     final vehicle = rawVehicle is Map<String, dynamic>
         ? rawVehicle
         : const <String, dynamic>{};
-    final rawChecklist = json['checklist'];
-    final rawPhotos = json['checkinPhotos'];
+    final rawCheckinPhotos = json['checkinPhotos'];
+    final rawCheckoutPhotos = json['checkoutPhotos'];
     final rawMinutes = json['estimatedMinutes'];
 
     return WasherOrderModel(
@@ -142,13 +107,11 @@ class WasherOrderModel {
       createdAt: (json['createdAt'] ?? '').toString(),
       qcPassed: json['qcPassed'] ?? false,
       qcNote: (json['qcNote'] ?? '').toString(),
-      checkinPhotos: rawPhotos is List
-          ? rawPhotos.map((e) => e.toString()).toList()
+      checkinPhotos: rawCheckinPhotos is List
+          ? rawCheckinPhotos.map((e) => e.toString()).toList()
           : const [],
-      checklist: rawChecklist is List
-          ? rawChecklist
-              .map((e) => ChecklistItemModel.fromJson(e as Map<String, dynamic>))
-              .toList()
+      checkoutPhotos: rawCheckoutPhotos is List
+          ? rawCheckoutPhotos.map((e) => e.toString()).toList()
           : const [],
     );
   }

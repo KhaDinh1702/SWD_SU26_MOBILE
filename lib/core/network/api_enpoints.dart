@@ -27,7 +27,7 @@ class ApiEndpoints {
 
   // washer work-orders
   static const workOrders = '/me/work-orders';
-  // detail/start/checklist/finish: '$workOrders/$id', '$workOrders/$id/start', ...
+  // detail/start/finish: '$workOrders/$id', '$workOrders/$id/start', '$workOrders/$id/finish'
 
   // upload (Cloudinary) → trả về { url } / { urls: [...] }
   static const uploadImage = '/upload/image';
