@@ -18,12 +18,8 @@ class WasherRepository {
     return _api.startWorkOrder(id);
   }
 
-  Future<WasherOrderModel> updateChecklistItem(
-      String id, int index, bool done) {
-    return _api.updateChecklistItem(id, index, done);
-  }
-
-  Future<WasherOrderModel> finishWorkOrder(String id) {
-    return _api.finishWorkOrder(id);
+  Future<WasherOrderModel> finishWorkOrder(
+      String id, List<String> checkoutPhotoUrls) {
+    return _api.finishWorkOrder(id, checkoutPhotoUrls);
   }
 }

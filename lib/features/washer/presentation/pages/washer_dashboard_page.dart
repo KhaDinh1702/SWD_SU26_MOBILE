@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:wave/core/theme/app_colors.dart';
@@ -15,7 +17,23 @@ class WasherDashboardPage extends ConsumerStatefulWidget {
 }
 
 class _WasherDashboardPageState extends ConsumerState<WasherDashboardPage> {
+  Timer? _refreshTimer;
+
   bool _isDone(WasherOrderModel o) => o.isCompleted;
+
+  @override
+  void initState() {
+    super.initState();
+    _refreshTimer = Timer.periodic(const Duration(seconds: 30), (_) {
+      ref.invalidate(washerWorkOrdersProvider);
+    });
+  }
+
+  @override
+  void dispose() {
+    _refreshTimer?.cancel();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -43,9 +61,10 @@ class _WasherDashboardPageState extends ConsumerState<WasherDashboardPage> {
                   final filtered =
                       orders.where((o) => !_isDone(o)).toList();
                   if (filtered.isEmpty) {
-                    return const _EmptyState(
-                      text: 'Không có xe nào cần xử lý',
-                    );
+                    final msg = orders.isEmpty
+                        ? 'Chưa có công việc nào được giao cho bạn'
+                        : 'Tất cả công việc hôm nay đã hoàn thành';
+                    return _EmptyState(text: msg);
                   }
                   return RefreshIndicator(
                     onRefresh: () async =>
@@ -247,7 +266,13 @@ class _WorkOrderCard extends StatelessWidget {
               Expanded(
                 child: ElevatedButton(
                   onPressed: onStart,
-                  child: const Text('Bắt đầu làm việc'),
+                  style: order.isRedo
+                      ? ElevatedButton.styleFrom(
+                          backgroundColor: const Color(0xFFE5484D),
+                          foregroundColor: Colors.white,
+                        )
+                      : null,
+                  child: Text(order.isRedo ? 'Làm lại' : 'Bắt đầu làm việc'),
                 ),
               ),
             ],
